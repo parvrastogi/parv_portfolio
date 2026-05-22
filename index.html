@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parv Rastogi — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── RESET & TOKENS ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0f;
+      --bg2:       #111118;
+      --card:      #16161f;
+      --border:    rgba(255,255,255,0.07);
+      --accent:    #7fffb2;
+      --accent2:   #3be8ff;
+      --text:      #e8e8f0;
+      --muted:     #6b6b80;
+      --ff-head:   'Syne', sans-serif;
+      --ff-body:   'DM Sans', sans-serif;
+      --radius:    14px;
+      --glow:      0 0 40px rgba(127,255,178,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,15,0.7);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .c1 { width: 500px; height: 500px; background: var(--accent);  top: -100px; right: -100px; }
+    .c2 { width: 400px; height: 400px; background: var(--accent2); bottom: 0;   left: -150px; }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(127,255,178,0.35);
+      border-radius: 100px;
+      padding: 0.3rem 1rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1.hero-name {
+      font-family: var(--ff-head);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -3px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    h1.hero-name span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 100px;
+      font-family: var(--ff-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+      cursor: pointer; border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      margin-top: 5rem;
+      display: flex; align-items: center; gap: 1rem;
+      color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+    .scroll-line {
+      width: 50px; height: 1px; background: var(--muted);
+    }
+
+    /* ── SHARED SECTION HEADER ── */
+    .section-wrap { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem; font-weight: 500;
+    }
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); 
+    padding-bottom: 70px;
+}
+   .about-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap:80px;
+    align-items:center;
+  
+}
+    .about-text p { color: var(--muted); font-weight: 300; margin-bottom: 1rem; font-size: 1.05rem; }
+
+    .about-photo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.about-photo img{
+    width:420px;
+    height:520px;
+    object-fit:cover;
+
+    border-radius:28px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 0 45px rgba(127,255,178,0.18);
+
+    transition:
+    opacity 1s ease,
+    transform 0.4s ease;
+}
+
+.about-photo img:hover{
+    transform:scale(1.03);
+}
+   .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    margin-top: -80px;
+}
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .stat-num {
+      font-family: var(--ff-head);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .skill-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .skill-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .skills-cat { margin-bottom: 2rem; }
+    .skills-cat-label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.9rem; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg2); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 3rem 2rem;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 8px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(127,255,178,0.5);
+    }
+    .tl-date {
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.3rem; font-weight: 500;
+    }
+    .tl-role {
+      font-family: var(--ff-head);
+      font-size: 1.25rem; font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .tl-org {
+      color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;
+    }
+    .tl-points { list-style: none; }
+    .tl-points li {
+      color: var(--muted); font-size: 0.9rem; padding: 0.25rem 0;
+      padding-left: 1.2rem; position: relative; font-weight: 300;
+    }
+    .tl-points li::before {
+      content: '→';
+      position: absolute; left: 0; color: var(--accent);
+    }
+
+    /* ── COMPETITIONS ── */
+    #competitions { background: var(--bg); }
+    .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .comp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.25s;
+    }
+    .comp-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--glow); }
+    .comp-badge {
+      display: inline-block;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); border: 1px solid rgba(59,232,255,0.3);
+      border-radius: 100px; padding: 0.2rem 0.8rem; margin-bottom: 1rem;
+    }
+    .comp-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .comp-desc { color: var(--muted); font-size: 0.88rem; font-weight: 300; line-height: 1.6; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg2); }
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      transition: all 0.25s;
+    }
+    .edu-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+    .edu-year { font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .edu-degree { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .edu-school { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.7rem; }
+    .edu-grade {
+      display: inline-block;
+      background: rgba(127,255,178,0.1); color: var(--accent);
+      border-radius: 100px; padding: 0.2rem 0.9rem;
+      font-size: 0.8rem; font-weight: 500;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-label { justify-content: center; display: block; }
+    .contact-inner .section-title { margin-bottom: 1rem; }
+    .contact-inner p { color: var(--muted); margin-bottom: 2.5rem; font-weight: 300; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--text);
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.7rem 1.5rem;
+      font-size: 0.88rem; transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.8rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .section-wrap { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">PR</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#competitions">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-circle c1"></div>
+    <div class="hero-bg-circle c2"></div>
+    
+    <h1 class="hero-name">Parv<br><span>Rastogi</span></h1>
+    <p class="hero-subtitle">
+      ECE student at VIT Vellore specialising in Biomedical Engineering —
+      passionate about startups, growth strategy, market research &amp; innovation.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in Touch ↗</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap">
+    <div class="about-grid reveal">
+
+    <!-- LEFT SIDE TEXT -->
+    <div class="about-text">
+
+        <p class="section-label">About Me</p>
+
+        <h2 class="section-title">
+            Building at the intersection of
+            tech &amp; business
+        </h2>
+
+        <p>
+            I'm a final year student at VIT
+            Vellore pursuing B.Tech in Electronics
+            and Communication Engineering with a
+            specialisation in Biomedical Engineering.
+        </p>
+
+        <p>
+            I'm deeply enthusiastic about startups,
+            business models, marketing, and growth
+            strategies, with a strong inclination
+            toward market research and problem-solving.
+        </p>
+
+        <p>
+            From marketing at a Shark Tank–featured
+            startup to representing VIT at IIT Madras —
+            I bring both strategic thinking and
+            hands-on execution.
+        </p>
+
+    </div>
+
+    <!-- RIGHT SIDE PHOTO -->
+    <div class="about-photo">
+
+        <img id="aboutImage"
+             src="images/image1.jpeg"
+             alt="Parv Rastogi">
+
+    </div>
+    </div>
+
+</div>
+
+
+<!-- STATS BELOW -->
+ 
+<div class="about-stats">
+
+    <div class="stat-card">
+        <div class="stat-num">8.00</div>
+        <div class="stat-label">CGPA at VIT Vellore</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Internships Completed</div>
+
+</div>
+
+
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-wrap">
+      <p class="section-label reveal">Skills &amp; Tools</p>
+      <h2 class="section-title reveal">What I bring to the table</h2>
+      <div class="skills-cat reveal">
+        <div class="skills-cat-label">Tools &amp; Software</div>
+        <div class="skills-grid">
+          <span class="skill-pill"><span class="skill-dot"></span>MS Excel</span>
+          <span class="skill-pill"><span class="skill-dot"></span>MS Office</span>
+          <span class="skill-pill"><span class="skill-dot"></span>PowerPoint</span>
+          <span class="skill-pill"><span class="skill-dot"></span>MATLAB</span>
+          <span class="skill-pill"><span class="skill-dot"></span>R</span>
+        </div>
+      </div>
+      <div class="skills-cat reveal">
+        <div class="skills-cat-label">Soft Skills</div>
+        <div class="skills-grid">
+          <span class="skill-pill"><span class="skill-dot"></span>Communication</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Team Management</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Collaboration</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Marketing</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Data Interpretation</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Problem Solving</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Market Research</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Event Management</span>
+        </div>
+      </div>
+      <div class="skills-cat reveal">
+        <div class="skills-cat-label">Languages</div>
+        <div class="skills-grid">
+          <span class="skill-pill"><span class="skill-dot"></span>Hindi (Native)</span>
+          <span class="skill-pill"><span class="skill-dot"></span>English (Full Proficiency)</span>
+          <span class="skill-pill"><span class="skill-dot"></span>Bengali (Elementary)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-wrap">
+      <p class="section-label reveal">Work Experience</p>
+      <h2 class="section-title reveal">Where I've worked</h2>
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-date"> May 2026 – July 2026</div>
+          <div class="tl-role">Founding Associate Intern</div>
+          <div class="tl-org">Outmate <span style="color:var(--accent);font-size:0.75rem;"></span></div>
+          <ul class="tl-points">
+            <li>Worked closely with the founding team on GTM strategy, growth, and business operations.</li>
+            <li>Supported outbound prospecting, lead generation, and partnership research.</li>
+            <li>Contributed to market research, positioning, and identifying ICPs for product expansion.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-date">Dec 2024 – June 2025</div>
+          <div class="tl-role">Marketing Intern</div>
+          <div class="tl-org">Myperro <span style="color:var(--accent);font-size:0.75rem;">(As seen on Shark Tank S-5)</span></div>
+          <ul class="tl-points">
+            <li>Managed multiple social media platforms including Instagram, WhatsApp, and LinkedIn.</li>
+            <li>Brainstormed and created engaging reel content to improve audience interaction.</li>
+            <li>Analyzed social media data, insights, and traction to optimize content strategy.</li>
+            <li>Contributed to brand positioning strategies to attract and expand target audience.</li>
+            <a href="https://drive.google.com/file/d/15Z0kgb8niuFkKvPKLQyxrSxO1d4drcvF/view?usp=drive_link"
+   target="_blank"
+   class="btn btn-outline"
+   style="margin-top:1rem; display:inline-flex;">
+
+   View Certificate ↗
+</a>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-date">April 2024 – May 2025</div>
+          <div class="tl-role">Collaboration &amp; Research Executive</div>
+          <div class="tl-org">E-Cell, VIT Vellore</div>
+          <ul class="tl-points">
+            <li>Networked with founders, investors, and C-suite executives.</li>
+            <li>Organized high-impact speaker events: Pioniera, E-Talk, and Achievers' Conclave.</li>
+            <li>Conducted market research, analyzed trends, and contributed to Innoventure — E-Summit's flagship business simulation event.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-date">2025</div>
+          <div class="tl-role">Special Guest Care Committee Member</div>
+          <div class="tl-org">Riviera 2025 — VIT Vellore</div>
+          <ul class="tl-points">
+            <li>Coordinated artist transportation and accommodation, strengthening skills in communication, teamwork, and event management.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETITIONS -->
+  <section id="competitions">
+    <div class="section-wrap">
+      <p class="section-label reveal">Competitions &amp; Projects</p>
+      <h2 class="section-title reveal">On the competitive stage</h2>
+      <div class="comp-grid">
+
+        <div class="comp-card reveal">
+          <span class="comp-badge">Round 2 Qualifier</span>
+          <div class="comp-title">Code 4 Change — Yantra 2024</div>
+          <div class="comp-desc">Pitched <strong style="color:var(--text);">Greenify</strong>, a one-stop sustainable platform promoting eco-friendly living. Advanced to Round 2, gaining experience in idea validation and sustainable innovation.</div>
+        </div>
+
+        <div class="comp-card reveal">
+          <span class="comp-badge">Top 6 Finish</span>
+          <div class="comp-title">Ideathon 2024 — E-Summit, VIT</div>
+          <div class="comp-desc">Developed a working prototype for <strong style="color:var(--text);">Greenify</strong> and secured a Top 6 position, showcasing strong skills in ideation, product development, and pitching.</div>
+        </div>
+
+        <div class="comp-card reveal">
+          <span class="comp-badge">Finalist — IIT Madras</span>
+          <div class="comp-title">EDD Enigma 2025 — E-Summit</div>
+          <div class="comp-desc">Represented VIT Vellore E-Cell in a South India inter-E-Cell competition, advancing to the final round. Gained hands-on experience in case analysis, GTM strategy, guestimation, and business modeling.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-wrap">
+      <p class="section-label reveal">Education</p>
+      <h2 class="section-title reveal">Academic background</h2>
+      <div class="edu-grid">
+
+        <div class="edu-card reveal">
+          <div class="edu-year">2023 – 2027</div>
+          <div class="edu-degree">B.Tech — ECE (Biomedical Engineering)</div>
+          <div class="edu-school">VIT Vellore</div>
+          <span class="edu-grade">CGPA: 8.00 / 10</span>
+        </div>
+
+        <div class="edu-card reveal">
+          <div class="edu-year">2022</div>
+          <div class="edu-degree">Class XII (CBSE)</div>
+          <div class="edu-school">GD Goenka Public School, Indirapuram</div>
+          <span class="edu-grade">90.6%</span>
+        </div>
+
+        <div class="edu-card reveal">
+          <div class="edu-year">2020</div>
+          <div class="edu-degree">Class X (CBSE)</div>
+          <div class="edu-school">GD Goenka Public School, Indirapuram</div>
+          <span class="edu-grade">94%</span>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <div style="margin-top:3rem;" class="reveal">
+        <div class="skills-cat-label" style="margin-bottom:1rem;">Certifications</div>
+        <div class="skills-grid">
+          <a href="https://drive.google.com/file/d/1OW3puAsRWwh9EgmDdLJWipH7ZX85HCiw/view?usp=drive_link"
+   class="skill-pill"
+   target="_blank"
+   style="text-decoration:none; color:inherit;">
+
+  <span class="skill-dot"></span>
+  L&T Edutech — Industrial IoT Architecture
+</a>
+
+<a href="https://drive.google.com/file/d/1ytj3gM3mlYUNtiRHnD-vPNic6u90DsNF/view?usp=drive_link"
+   class="skill-pill"
+   target="_blank"
+   style="text-decoration:none; color:inherit;">
+
+  <span class="skill-dot"></span>
+  MBA Circle — Pre MBA Excel
+</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-wrap">
+      <div class="contact-inner reveal">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's connect</h2>
+        <p>Whether you have an opportunity, a project idea, or just want to say hi — my inbox is always open.</p>
+        <div class="contact-links">
+          <a href="mailto:parvrastogi42004@gmail.com" class="contact-link">✉ Email</a>
+          <a href="https://linkedin.com/in/parvrastogi4" class="contact-link" target="_blank">🔗 LinkedIn</a>
+          <a href="tel:+919958743044" class="contact-link">📞 +91 99587 43044</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed &amp; built for Parv Rastogi · 2025</p>
+  </footer>
+
+  <!-- SCROLL REVEAL JS -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

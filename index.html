@@ -402,12 +402,18 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
   
     
-   /* ───────── MOBILE RESPONSIVE ───────── */
+ /* ───────── MOBILE RESPONSIVE ───────── */
 @media screen and (max-width:768px){
 
     html, body{
         overflow-x:hidden !important;
         width:100%;
+        max-width:100% !important;
+    }
+
+    *{
+        max-width:100%;
+        box-sizing:border-box;
     }
 
     /* NAVBAR */
@@ -429,6 +435,7 @@
         display:flex !important;
         flex-direction:column !important;
         align-items:center !important;
+        justify-content:center !important;
         text-align:center !important;
         gap:2rem !important;
     }
@@ -438,15 +445,18 @@
         width:100% !important;
     }
 
-    /* FIX PARV RASTOGI SIZE */
+    /* FIX PARV RASTOGI */
     .hero-name{
-        font-size:3.6rem !important;
+        font-size:3.2rem !important;
         line-height:0.95 !important;
         letter-spacing:-2px !important;
         text-align:center !important;
+
+        /* stop weird word breaking */
         word-break:normal !important;
         overflow-wrap:normal !important;
-        word-break:break-word !important;
+        white-space:normal !important;
+        hyphens:none !important;
     }
 
     .hero-subtitle{
@@ -477,24 +487,51 @@
         gap:2rem !important;
     }
 
-    /* FIX HUGE HEADING */
-    .section-title{
-        font-size:2.8rem !important;
-        line-height:1 !important;
-      
+    /* FIX ALL BIG HEADINGS */
+    .section-title,
+    .about-title,
+    .hero-title,
+    h1,
+    h2{
+        font-size:2.25rem !important;
+        line-height:1.05 !important;
+        letter-spacing:-1px !important;
+
+        /* PREVENT WORD BREAKING */
+        word-break:normal !important;
+        overflow-wrap:break-word !important;
+        white-space:normal !important;
+        hyphens:none !important;
+
+        max-width:100% !important;
     }
 
-    /* FIX ABOUT TEXT CUTTING */
+    /* ABOUT TITLE */
+    .about-content h2{
+        font-size:2.2rem !important;
+        line-height:1.05 !important;
+    }
+
+    /* EDUCATION / PROJECT / COMP TITLES */
+    .education h2,
+    .projects h2,
+    .competition h2,
+    .section-wrap h2{
+        font-size:2.2rem !important;
+        line-height:1.05 !important;
+    }
+
+    /* ABOUT TEXT */
     .about-text p{
         font-size:1rem !important;
         line-height:1.9 !important;
-        
     }
 
-    /* FIX IMAGE LEFT GAP + CUTTING */
+    /* FIX IMAGE GAP + CUTTING */
     .about-photo{
         display:flex !important;
         justify-content:center !important;
+        align-items:center !important;
         margin:0 auto !important;
         padding:0 !important;
         width:100% !important;
@@ -502,7 +539,7 @@
 
     #aboutImage,
     .about-photo img{
-        width:90% !important;
+        width:92% !important;
         max-width:320px !important;
         height:auto !important;
         object-fit:cover !important;
@@ -511,19 +548,11 @@
         border-radius:30px !important;
     }
 
-    /* STATS BOXES */
+    /* STATS */
     .about-stats{
         display:grid !important;
         grid-template-columns:1fr 1fr !important;
         gap:12px !important;
-    }
-    /* EDUCATION / PROJECT TITLES */
-    .education h2,
-    .projects h2,
-    .competition h2{
-        font-size:2.8rem !important;
-        line-height:1 !important;
-       
     }
 
     /* CARDS */

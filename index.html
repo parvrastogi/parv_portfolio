@@ -398,8 +398,174 @@
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+  
+    
+   /* ───────── MOBILE RESPONSIVE ───────── */
+@media screen and (max-width:768px){
 
- 
+    html, body{
+        width:100%;
+        overflow-x:hidden;
+    }
+
+    body{
+        margin:0;
+    }
+
+    /* NAVBAR */
+    nav{
+        padding:1rem 1.2rem !important;
+    }
+
+    .nav-links{
+        display:none !important;
+    }
+
+    .nav-logo{
+        font-size:2rem !important;
+    }
+
+    /* HERO */
+    #hero{
+        min-height:auto !important;
+        padding:7rem 1.5rem 3rem !important;
+    }
+
+    .hero-name{
+        font-size:4rem !important;
+        line-height:0.9 !important;
+        letter-spacing:-2px !important;
+    }
+
+    .hero-subtitle{
+        font-size:1rem !important;
+        line-height:1.8 !important;
+        max-width:100% !important;
+    }
+
+    .hero-cta{
+        display:flex !important;
+        flex-direction:column !important;
+        gap:1rem !important;
+        width:100% !important;
+    }
+
+    .btn{
+        width:100% !important;
+        justify-content:center !important;
+    }
+
+    .hero-scroll{
+        display:none !important;
+    }
+
+    /* SECTION SPACING */
+    .section-wrap{
+        padding:4rem 1.5rem !important;
+    }
+
+    /* TITLES */
+    .section-title{
+        font-size:2.8rem !important;
+        line-height:1.05 !important;
+        margin-bottom:2rem !important;
+    }
+
+    /* ABOUT */
+    .about-grid{
+        grid-template-columns:1fr !important;
+        gap:2rem !important;
+    }
+
+    .about-photo{
+        order:2;
+        margin-top:1rem;
+    }
+
+    .about-photo img{
+        width:100% !important;
+        max-width:320px !important;
+        height:auto !important;
+        border-radius:24px !important;
+    }
+
+    .about-text{
+        order:1;
+    }
+
+    .about-text p{
+        font-size:1rem !important;
+        line-height:1.9 !important;
+    }
+
+    /* STATS */
+    .about-stats{
+        display:grid !important;
+        grid-template-columns:1fr 1fr !important;
+        gap:14px !important;
+        margin-top:1.5rem !important;
+        padding:0 1.5rem !important;
+    }
+
+    .stat-card{
+        padding:1.2rem !important;
+    }
+
+    .stat-num{
+        font-size:2rem !important;
+    }
+
+    /* SKILLS */
+    .skills-grid{
+        display:flex !important;
+        flex-wrap:wrap !important;
+        gap:10px !important;
+    }
+
+    .skill-pill{
+        font-size:0.92rem !important;
+        padding:0.65rem 1rem !important;
+    }
+
+    /* EXPERIENCE */
+    .timeline{
+        padding-left:1rem !important;
+    }
+
+    .tl-item{
+        padding-left:2rem !important;
+    }
+
+    .tl-role{
+        font-size:1.7rem !important;
+    }
+
+    .tl-points li{
+        font-size:1rem !important;
+    }
+
+    /* COMPETITION CARDS */
+    .comp-grid,
+    .edu-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    /* CONTACT */
+    .contact-links{
+        flex-direction:column !important;
+        gap:1rem !important;
+    }
+
+    .contact-link{
+        width:100% !important;
+        justify-content:center !important;
+    }
+
+    footer{
+        padding:2rem 1rem !important;
+        text-align:center !important;
+    }
+}
 
   </style>
 </head>
@@ -484,7 +650,7 @@
              alt="Parv Rastogi">
 
     </div>
-    </div>
+    
 
 </div>
 
@@ -726,6 +892,37 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
   </script>
+  <script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+<!-- IMAGE CHANGER -->
+<script>
+const images = [
+    "images/image1.jpeg",
+    "images/image2.jpeg",
+    "images/image3.jpeg"
+];
+
+let index = 0;
+
+setInterval(() => {
+    index = (index + 1) % images.length;
+
+    document.getElementById("aboutImage").src =
+    images[index];
+}, 10000);
+</script>
 
 </body>
 </html>
